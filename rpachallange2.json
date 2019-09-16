@@ -1,0 +1,376 @@
+{
+  "Name": "rpachallange2-1",
+  "CreationDate": "2019-9-16",
+  "Commands": [
+    {
+      "Command": "executeScript",
+      "Target": "groupEl = [...document.querySelectorAll('.awesome-marker')].reduce((agg,el) => { \tif(el.classList.contains('awesome-marker-icon-green')){ \t\tagg[1].push(el); \t} \tif(el.classList.contains('awesome-marker-icon-red')){ \t\tagg[0].push(el); \t} \treturn agg },[[],[]]);",
+      "Value": ""
+    },
+    {
+      "Command": "executeScript",
+      "Target": "groupPair = groupEl[0].map(x => { \tvar [redX,redY] = x.style.transform.match(/\\d+/g).slice(1,3); \tvar elDistance = groupEl[1].map(y => { \t\tvar [greenX,greenY] = y.style.transform.match(/\\d+/g).slice(1,3); \t\tvar distance = Math.sqrt((redX - greenX) ** 2 + (redY - greenY) ** 2); \t\treturn[y,distance] \t}).sort((st,en) => st[1] - en[1]); \treturn [x,...elDistance[0]]; }).sort((a,b) => a[1]._leaflet_id - b[1]._leaflet_id)",
+      "Value": ""
+    },
+    {
+      "Command": "executeScript",
+      "Target": "similarity = (s1,s2) => {var longer=s1;var shorter=s2;if(s1.length<s2.length){longer=s2;shorter=s1} var longerLength=longer.length;if(longerLength==0){return 1.0} return(longerLength-editDistance(longer,shorter))/parseFloat(longerLength)}",
+      "Value": ""
+    },
+    {
+      "Command": "executeScript",
+      "Target": "editDistance = (s1,s2) => {s1=s1.toLowerCase();s2=s2.toLowerCase();var costs=new Array();for(var i=0;i<=s1.length;i++){var lastValue=i;for(var j=0;j<=s2.length;j++){if(i==0) costs[j]=j;else{if(j>0){var newValue=costs[j-1];if(s1.charAt(i-1)!=s2.charAt(j-1)) newValue=Math.min(Math.min(newValue,lastValue),costs[j])+1;costs[j-1]=lastValue;lastValue=newValue}}} if(i>0) costs[s2.length]=lastValue} return costs[s2.length]}",
+      "Value": ""
+    },
+    {
+      "Command": "executeScript",
+      "Target": "return ''",
+      "Value": "supplyTemp"
+    },
+    {
+      "Command": "executeScript",
+      "Target": "return {}",
+      "Value": "SUPPLYOBJ"
+    },
+    {
+      "Command": "executeScript_Sandbox",
+      "Target": "return [\"Demand\",\"Supply\",\"Name\",\"Cargo\",\"Cargo preference\",\"State\",\"City\",\"Shipping date\",\"Ship preference\",\"Address 1\",\"Address 2\",\"Zip Code\"];",
+      "Value": "labelTest"
+    },
+    {
+      "Command": "executeScript",
+      "Target": "return groupPair.length",
+      "Value": "PairLength"
+    },
+    {
+      "Command": "executeScript_Sandbox",
+      "Target": "return 0",
+      "Value": "PairCounter"
+    },
+    {
+      "Command": "executeScript",
+      "Target": "document.querySelector('.btn-start').click()",
+      "Value": ""
+    },
+    {
+      "Command": "executeScript",
+      "Target": "$('#mapid').hide()",
+      "Value": ""
+    },
+    {
+      "Command": "while_v2",
+      "Target": "${pairCounter} < ${PairLength}",
+      "Value": ""
+    },
+    {
+      "Command": "comment",
+      "Target": "czerwony",
+      "Value": ""
+    },
+    {
+      "Command": "executeScript",
+      "Target": "groupPair[${pairCounter}][0].click()",
+      "Value": ""
+    },
+    {
+      "Command": "pause",
+      "Target": "2000",
+      "Value": ""
+    },
+    {
+      "Command": "executeScript",
+      "Target": "document.querySelector('.leaflet-popup-content > button').click()",
+      "Value": ""
+    },
+    {
+      "Command": "executeScript",
+      "Target": "document.querySelector('#demand_table').style.borderLeft = '10px solid green'",
+      "Value": ""
+    },
+    {
+      "Command": "executeScript",
+      "Target": "document.querySelector('#demand_table').scrollIntoView()",
+      "Value": ""
+    },
+    {
+      "Command": "executeScript",
+      "Target": "[...document.querySelectorAll('#demand_table tr')].forEach(x => x.style.background = \"white\")",
+      "Value": ""
+    },
+    {
+      "Command": "pause",
+      "Target": "500",
+      "Value": ""
+    },
+    {
+      "Command": "OCRExtractRelative",
+      "Target": "test2_ocr_dpi_96_relative.png",
+      "Value": "DemandOCR"
+    },
+    {
+      "Command": "executeScript_Sandbox",
+      "Target": "return ${DemandOCR}.trim().replace(/(\\r\\n|\\n|\\r)/gm,\",\").split(\",\")",
+      "Value": "ArrNowDemand"
+    },
+    {
+      "Command": "executeScript",
+      "Target": "return ${ArrNowDemand}.map((x,i) => ${labelTest}.map(y => [y,similarity(x,y)]).sort((a,b) => b[1] - a[1])[0][0]  )",
+      "Value": "ArrNowDemandBtr"
+    },
+    {
+      "Command": "executeScript",
+      "Target": "${ArrNowDemandBtr}.slice(1).forEach((x,i) => [...document.querySelectorAll('#demand_table tr')][i+1].querySelector('td').innerText = x)",
+      "Value": ""
+    },
+    {
+      "Command": "executeScript",
+      "Target": "return [...document.querySelectorAll('#demand_tbody > tr')].reduce((agg,el)=>{var tr1=el.querySelectorAll('td')[0].innerText;var tr2=el.querySelectorAll('td')[1].innerText;agg[tr1]=tr2;return agg},{})",
+      "Value": "DEMANDOBJ"
+    },
+    {
+      "Command": "comment",
+      "Target": "zielony",
+      "Value": ""
+    },
+    {
+      "Command": "executeScript",
+      "Target": "return groupPair[${pairCounter}][1][\"_leaflet_id\"]",
+      "Value": "supplyActual"
+    },
+    {
+      "Command": "executeScript",
+      "Target": "groupPair[${pairCounter}][1].click()",
+      "Value": ""
+    },
+    {
+      "Command": "executeScript",
+      "Target": "document.querySelector('.leaflet-popup-content > button').click()",
+      "Value": ""
+    },
+    {
+      "Command": "if_v2",
+      "Target": "${supplyActual} != ${supplyTemp}",
+      "Value": ""
+    },
+    {
+      "Command": "executeScript",
+      "Target": "return groupPair[${pairCounter}][1][\"_leaflet_id\"]",
+      "Value": "supplyTemp"
+    },
+    {
+      "Command": "pause",
+      "Target": "2000",
+      "Value": ""
+    },
+    {
+      "Command": "executeScript",
+      "Target": "document.querySelector('#supply_table').style.borderLeft = '10px solid red'",
+      "Value": ""
+    },
+    {
+      "Command": "executeScript",
+      "Target": "[...document.querySelectorAll('#supply_table tr')].forEach(x => x.style.background = \"white\")",
+      "Value": ""
+    },
+    {
+      "Command": "pause",
+      "Target": "500",
+      "Value": ""
+    },
+    {
+      "Command": "OCRExtractRelative",
+      "Target": "test3_ocr_dpi_96_relative.png",
+      "Value": "SupplyOCR"
+    },
+    {
+      "Command": "executeScript_Sandbox",
+      "Target": "return ${SupplyOCR}.trim().replace(/(\\r\\n|\\n|\\r)/gm,\",\").split(\",\")",
+      "Value": "ArrNowSupply"
+    },
+    {
+      "Command": "executeScript",
+      "Target": "return ${ArrNowSupply}.map((x,i) => ${labelTest}.map(y => [y,similarity(x,y)]).sort((a,b) => b[1] - a[1])[0][0]  )",
+      "Value": "ArrNowSupplyBtr"
+    },
+    {
+      "Command": "executeScript",
+      "Target": "${ArrNowSupplyBtr}.slice(1).forEach((x,i) => [...document.querySelectorAll('#supply_table tr')][i+1].querySelector('td').innerText = x)",
+      "Value": ""
+    },
+    {
+      "Command": "executeScript",
+      "Target": "return [...document.querySelectorAll('#supply_tbody > tr')].reduce((agg,el)=>{var tr1=el.querySelectorAll('td')[0].innerText;var tr2=el.querySelectorAll('td')[1].innerText;agg[tr1]=tr2;return agg},{})",
+      "Value": "SUPPLYOBJ"
+    },
+    {
+      "Command": "end",
+      "Target": "",
+      "Value": ""
+    },
+    {
+      "Command": "comment",
+      "Target": "wypełnianki",
+      "Value": "SUPPLYOBJ"
+    },
+    {
+      "Command": "executeScript",
+      "Target": "[...document.querySelectorAll('.form-group')][1].querySelector('input').value = ${DEMANDOBJ}[\"Shipping date\"]",
+      "Value": ""
+    },
+    {
+      "Command": "executeScript",
+      "Target": "[...document.querySelectorAll('.form-group')][4].querySelector('input').value = ${DEMANDOBJ}[\"Name\"]",
+      "Value": ""
+    },
+    {
+      "Command": "executeScript",
+      "Target": "[...document.querySelectorAll('.form-group')][5].querySelector('input').value = ${DEMANDOBJ}[\"Address 1\"]",
+      "Value": ""
+    },
+    {
+      "Command": "executeScript",
+      "Target": "[...document.querySelectorAll('.form-group')][6].querySelector('input').value = ${DEMANDOBJ}[\"Address 2\"]",
+      "Value": ""
+    },
+    {
+      "Command": "executeScript",
+      "Target": "[...document.querySelectorAll('.form-group')][7].querySelector('input').value = ${DEMANDOBJ}[\"City\"]",
+      "Value": ""
+    },
+    {
+      "Command": "executeScript",
+      "Target": "[...document.querySelectorAll('.form-group')][10].querySelector('input').value = ${SUPPLYOBJ}[\"Name\"]",
+      "Value": ""
+    },
+    {
+      "Command": "executeScript",
+      "Target": "[...document.querySelectorAll('.form-group')][11].querySelector('input').value = ${SUPPLYOBJ}[\"Address 1\"]",
+      "Value": ""
+    },
+    {
+      "Command": "executeScript",
+      "Target": "[...document.querySelectorAll('.form-group')][12].querySelector('input').value = ${SUPPLYOBJ}[\"Address 2\"]",
+      "Value": ""
+    },
+    {
+      "Command": "executeScript",
+      "Target": "[...document.querySelectorAll('.form-group')][13].querySelector('input').value = ${SUPPLYOBJ}[\"City\"]",
+      "Value": ""
+    },
+    {
+      "Command": "comment",
+      "Target": "inputy",
+      "Value": ""
+    },
+    {
+      "Command": "executeScript",
+      "Target": "[...document.querySelectorAll('.form-group')[2].querySelectorAll(\"input\")].forEach(x=>{x.checked=!1;if(x.value==${DEMANDOBJ}[\"Cargo preference\"] ){x.checked=!0}else{x.checked=!1} x.dispatchEvent(new Event(\"change\"))})",
+      "Value": ""
+    },
+    {
+      "Command": "executeScript",
+      "Target": "[...document.querySelectorAll('.form-group')[3].querySelectorAll(\"input\")].forEach(x=>{x.checked=!1;if(x.value==${DEMANDOBJ}[\"Ship preference\"] ){x.checked=!0}else{x.checked=!1} x.dispatchEvent(new Event(\"change\"))})",
+      "Value": ""
+    },
+    {
+      "Command": "executeScript",
+      "Target": "[...document.querySelectorAll('.form-group')][8].querySelector(\"select\").value = ${DEMANDOBJ}[\"State\"]",
+      "Value": ""
+    },
+    {
+      "Command": "executeScript",
+      "Target": "[...document.querySelectorAll('.form-group')][14].querySelector(\"select\").value = ${SUPPLYOBJ}[\"State\"]",
+      "Value": ""
+    },
+    {
+      "Command": "comment",
+      "Target": "zipy",
+      "Value": ""
+    },
+    {
+      "Command": "executeScript",
+      "Target": "[...document.querySelectorAll('.form-group')][9].querySelector(\"input\").value = ${DEMANDOBJ}[\"Zip Code\"]",
+      "Value": ""
+    },
+    {
+      "Command": "executeScript",
+      "Target": "[...document.querySelectorAll('.form-group')][15].querySelector(\"input\").value = ${SUPPLYOBJ}[\"Zip Code\"]",
+      "Value": ""
+    },
+    {
+      "Command": "executeScript",
+      "Target": "[...document.querySelectorAll('.form-group input')].forEach(x => x.dispatchEvent(new Event(\"change\")))",
+      "Value": ""
+    },
+    {
+      "Command": "executeScript",
+      "Target": "[...document.querySelectorAll('.form-group select')].forEach(x => x.dispatchEvent(new Event(\"change\")))",
+      "Value": ""
+    },
+    {
+      "Command": "comment",
+      "Target": "name",
+      "Value": ""
+    },
+    {
+      "Command": "executeScript",
+      "Target": "[...document.querySelectorAll('.form-group')][0].querySelector('textarea').value= ${DEMANDOBJ}[\"Cargo\"]",
+      "Value": ""
+    },
+    {
+      "Command": "executeScript",
+      "Target": "return [...document.querySelectorAll('.form-group div')].filter(x => !x.querySelector('input,textarea,select').value || x.querySelector('input,textarea,select').value == \"undefined\" || x.querySelector('input,textarea,select').value == \"null\"  ).length > 0",
+      "Value": "OcrTest "
+    },
+    {
+      "Command": "if_v2",
+      "Target": "${OcrTest}",
+      "Value": ""
+    },
+    {
+      "Command": "executeScript",
+      "Target": "[...document.querySelectorAll('.form-group div')].filter(x => !x.querySelector('input,textarea,select').value || x.querySelector('input,textarea,select').value == \"undefined\" || x.querySelector('input,textarea,select').value == \"null\"  ).forEach(x => x.parentNode.style.background = \"red\")",
+      "Value": ""
+    },
+    {
+      "Command": "pause",
+      "Target": "0",
+      "Value": ""
+    },
+    {
+      "Command": "end",
+      "Target": "",
+      "Value": ""
+    },
+    {
+      "Command": "executeScript",
+      "Target": "document.querySelector('.submit-form').click()",
+      "Value": ""
+    },
+    {
+      "Command": "pause",
+      "Target": "500",
+      "Value": ""
+    },
+    {
+      "Command": "executeScript",
+      "Target": "document.querySelectorAll('.input-sm')[5].value =document.querySelector('.label-default').innerText",
+      "Value": ""
+    },
+    {
+      "Command": "executeScript",
+      "Target": "document.querySelector('.btn-create').click()",
+      "Value": ""
+    },
+    {
+      "Command": "executeScript_Sandbox",
+      "Target": "return ${pairCounter} + 1",
+      "Value": "pairCounter"
+    },
+    {
+      "Command": "end",
+      "Target": "",
+      "Value": ""
+    }
+  ]
+}
