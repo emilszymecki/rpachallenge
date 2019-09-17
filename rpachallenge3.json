@@ -1,0 +1,116 @@
+{
+  "Name": "RpaChellange3",
+  "CreationDate": "2019-9-17",
+  "Commands": [
+    {
+      "Command": "XClick",
+      "Target": "RPACHELLANGEINPUT_dpi_96.png",
+      "Value": ""
+    },
+    {
+      "Command": "executeScript",
+      "Target": "console.clear()",
+      "Value": ""
+    },
+    {
+      "Command": "XType",
+      "Target": "${KEY_F12}",
+      "Value": ""
+    },
+    {
+      "Command": "executeScript",
+      "Target": "document.querySelectorAll('.btn-primary')[1].click()",
+      "Value": ""
+    },
+    {
+      "Command": "executeScript",
+      "Target": "document.querySelector('.btn-large').click()",
+      "Value": ""
+    },
+    {
+      "Command": "executeScript",
+      "Target": "btns = [...document.querySelectorAll('i.linkPointer')].filter((x,i) => i%2 == 0)",
+      "Value": ""
+    },
+    {
+      "Command": "executeScript",
+      "Target": "return [...document.querySelectorAll('i.linkPointer')].filter((x,i) => i%2 == 0)",
+      "Value": "btns"
+    },
+    {
+      "Command": "executeScript",
+      "Target": "return ${btns}.length",
+      "Value": "btnLength"
+    },
+    {
+      "Command": "executeScript_Sandbox",
+      "Target": "return 0",
+      "Value": "btnCounter"
+    },
+    {
+      "Command": "executeScript_Sandbox",
+      "Target": "return 1",
+      "Value": "btnCounterPlus"
+    },
+    {
+      "Command": "while_v2",
+      "Target": "${btnCounter} <  ${btnLength}",
+      "Value": ""
+    },
+    {
+      "Command": "executeScript",
+      "Target": "return \"temp\"+${btnCounterPlus}",
+      "Value": "btnNameTemp"
+    },
+    {
+      "Command": "executeScript",
+      "Target": "btns[${btnCounter}].click()",
+      "Value": ""
+    },
+    {
+      "Command": "XClick",
+      "Target": "RPACHELLANGECONSOLE_dpi_96.png",
+      "Value": "#right"
+    },
+    {
+      "Command": "XClick",
+      "Target": "RPACHELLANGESTOREASGLOBAL_dpi_96.png",
+      "Value": ""
+    },
+    {
+      "Command": "executeScript",
+      "Target": "window[${btnNameTemp}].map(x=>x.type).forEach((x,i)=>{if(x==\"1\"){[...document.querySelectorAll('.card.blue-grey')[i].querySelectorAll('a')][0].click()}else{[...document.querySelectorAll('.card.blue-grey')[i].querySelectorAll('a')][1].click()}})",
+      "Value": ""
+    },
+    {
+      "Command": "executeScript",
+      "Target": "document.querySelector('.modal-close').click()",
+      "Value": ""
+    },
+    {
+      "Command": "executeScript",
+      "Target": "console.clear()",
+      "Value": ""
+    },
+    {
+      "Command": "executeScript_Sandbox",
+      "Target": "return ${btnCounter} + 1",
+      "Value": "btnCounter"
+    },
+    {
+      "Command": "executeScript_Sandbox",
+      "Target": "return ${btnCounterPlus} + 1",
+      "Value": "btnCounterPlus"
+    },
+    {
+      "Command": "end",
+      "Target": "",
+      "Value": ""
+    },
+    {
+      "Command": "executeScript",
+      "Target": "document.querySelector('.btn-large').click()",
+      "Value": ""
+    }
+  ]
+}
